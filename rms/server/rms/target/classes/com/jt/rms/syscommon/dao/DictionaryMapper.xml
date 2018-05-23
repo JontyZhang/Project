@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.syscommon.dao.DictionaryMapper" >
+<!-- 字典查询mapper -->
+	<resultMap id="DictionaryMap" type="com.jt.rms.syscommon.entity.DictionaryEntity">
+    	<id column="DICTIONARY_ID" property="dictionaryId" jdbcType="VARCHAR" />
+		<result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR" />
+	    <result column="CODE" property="code" jdbcType="VARCHAR" />
+	    <result column="VALUE" property="value" jdbcType="VARCHAR" />	
+	    <result column="REMARK" property="remark" jdbcType="VARCHAR" />		
+	</resultMap>
+<!-- 新增字典 -->
+	<insert id="addDictionaryContent">
+		INSERT INTO  RMS_SYS_DICTIONARY
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="dictionaryId != null" >
+	        DICTIONARY_ID,
+	      </if>
+	      <if test="typeCode != null" >
+	        TYPE_CODE,
+	      </if>
+	      <if test="code != null" >
+	        CODE,
+	      </if>
+	      <if test="value != null" >
+	        VALUE,
+	      </if>
+	      <if test="remark != null" >
+	        REMARK,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="dictionaryId != null" >
+	        #{dictionaryId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="typeCode != null" >
+	        #{typeCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="code != null" >
+	        #{code,jdbcType=VARCHAR},
+	      </if>
+	      <if test="value != null" >
+	        #{value,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remark != null" >
+	        #{remark,jdbcType=VARCHAR},
+	      </if>
+	    </trim>	
+	</insert>
+<!-- 字典表批量查询 -->
+	<select id="queryDictionaryBatch" resultMap="DictionaryMap" parameterType="Map">
+	   	 SELECT   DICTIONARY_ID,
+				  TYPE_CODE ,
+				  CODE ,
+				  VALUE,
+				  REMARK
+				  FROM RMS_SYS_DICTIONARY
+	   	 		  WHERE 1=1
+	   	 	<if test="typeCode != null">
+	    	  AND LOWER(TYPE_CODE) like LOWER('%${typeCode}%')
+	    	</if>
+	    	<if test="code != null">
+	    	  AND LOWER(CODE) like LOWER('%${code}%')
+	    	</if>
+	    	<if test="value != null">
+	    	  AND LOWER(VALUE) like LOWER('%${value}%')
+	    	</if>
+	    	 ORDER BY TYPE_CODE DESC , CODE ASC
+	    	
+	</select>
+<!-- 批量删除字典表 -->
+	<delete id="deleteDictionary" parameterType="java.util.List">
+ 		DELETE FROM RMS_SYS_DICTIONARY 
+	   	WHERE DICTIONARY_ID IN
+	   	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	   		#{item.dictionaryId}
+	  	</foreach>	
+	
+	</delete>
+<!-- 查询字典某内容是否存在 -->
+	<select id="selectDictionaryByTypeCode"  resultType="java.lang.Integer" parameterType="com.jt.rms.syscommon.entity.DictionaryEntity">
+		SELECT COUNT(*) FROM RMS_SYS_DICTIONARY WHERE TYPE_CODE = #{typeCode} AND CODE = #{code}
+	</select>
+<!-- 根据字典TypeCode和Code翻译字典内容 -->
+	<select id="queryDictionary" parameterType="com.jt.rms.syscommon.entity.DictionaryEntity" resultMap="DictionaryMap">
+			   	 SELECT   DICTIONARY_ID,
+				  TYPE_CODE ,
+				  CODE ,
+				  VALUE,
+				  REMARK
+				  FROM RMS_SYS_DICTIONARY
+	   	 		  WHERE 1=1
+	   	 	<if test="typeCode != null">
+	    	  AND TYPE_CODE = #{typeCode}
+	    	</if>
+	    	<if test="code != null">
+	    	  AND CODE = #{code}
+	    	</if>
+	</select>
+</mapper>

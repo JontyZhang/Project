@@ -1,0 +1,277 @@
+.table_box_select_model {
+    height: 441px;
+    overflow: auto;
+}
+.forjs_lxl {
+    display: flex;
+    padding-left: 1%;
+    padding: 10px 15px;
+    background-color: #fff;
+    width: 98%;
+    margin: 0 auto;
+}
+.forjs_lxl_flex_search {
+    flex:0 0 200px;
+    width:200px;
+    /*height:600px;*/
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+.forjs_lxl_flex1 {
+    flex: 1;
+}
+.forjs_lxl .set_alert_value {
+    padding: 0px;
+}
+
+.table_box_select_model td:last-child button{
+    background: #00a1e9;
+    width: 80px;
+    height: 30px;
+    line-height: 28px;
+    margin-left: 20px;
+    border: 1px solid #00a1e9;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+.table_box_select_model td:last-child button:hover {
+    opacity: 0.7;
+    filter:Alpha(Opacity=70);
+}
+#mount_box {
+    position: fixed;
+    width: 300px;
+    height: 200px;
+    left:50%;
+    margin-left:-150px;
+    top:50%;
+    margin-top:-100px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow:  0 0 4px #ccc;
+    background-color: #fff;
+}
+#mount_box .mb_title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    background: #00a1e9;
+    color: #fff;
+    padding-left: 10px;
+    border-radius: 8px 8px 0 0;
+}
+#mount_box >p {
+    height: 80px;
+    line-height: 80px;
+    font-size: 14px;
+    text-align: center;
+}
+.mb_btn {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom:20px;
+}
+.ar_btn button,
+.ar_title button,
+#mount_box > div > button {
+    background: #00a1e9;
+    width: 80px;
+    height: 30px;
+    line-height: 28px;
+    margin-left: 20px;
+    border: 1px solid #00a1e9;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+.ar_btn button:hover,
+.ar_title button:hover,
+#mount_box > div > button:hover {
+    opacity: 0.7;
+    filter:Alpha(opacity=70);
+}
+.add_resouce {
+    position: fixed;
+    width:800px;
+    height: 600px;
+    left:50%;
+    margin-left:-400px;
+    top:50%;
+    margin-top:-300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    background-color: #fff;
+}
+.ar_title {
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    background: #eef1f5;
+    padding-left: 10px;
+    border-radius: 10px 10px 0 0;
+}
+.ar_title button {
+    font-size: 14px;
+}
+.ar_title label {
+
+}
+.ar_title input {
+    width: 130px;
+    height: 30px;
+    margin-left: 5px;
+    border: 1px solid #a0b1bb;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 3px 4px;
+    margin-right: 20px;
+}
+.ar_choose {
+    display: flex;
+    height: 480px;
+}
+.arc_l,.arc_r {
+    height: 100%;
+    flex: 1;
+    /*background-color: red;*/
+}
+.arc_m {
+    height: 100%;
+    flex: 0 0 60px;
+    /*background-color: yellow;*/
+    position: relative;
+}
+.arc_title {
+    width: 90%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 13px;
+    background-color: #eef1f5;
+    border-radius: 4px;
+    margin: 10px auto;
+}
+.ar_choose .table_box {
+    width: 90%;
+    margin: 0px auto;
+    height: 401px;
+
+}
+.ar_choose .table_box table {
+    font-size: 12px;
+    height: 401px;
+    border: 1px solid #ced7de;
+}
+
+.ar_choose .table_box th{
+    font-size: 12px;
+    font-weight: bold;
+}
+.arc_m > div {
+    height:72px;
+    position: absolute;
+    top:50%;
+    margin-top:-36px;
+    margin-left: 2px;
+    text-align: center;
+}
+.arc_m button {
+    width: 80%;
+    height: 26px;
+    line-height: 24px;
+    margin: 5px auto;
+    border: 1px solid #ced7de;
+    text-align: center;
+    border-radius: 3px;
+    color: #fff;
+}
+.ar_btn {
+    text-align: center;
+}
+.table_box tr.active {
+    color: #f60;
+}
+
+
+.ar_title1 .fr {
+    padding: 0 10px;
+    transition: scale .2s ease;
+    cursor: pointer;
+}
+.ar_title1 .fr:hover {
+    transform: scale(1.2);
+}
+.arc_input {
+    width: 90%;
+    margin-left:5%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+.arc_table_box  p{
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding-left: 10px;
+}
+.arc_table_box p.active,
+.arc_table_box p:hover {
+    background-color: #eef1f5;
+
+}
+.ar_btn {
+    font-size: 14px;
+}
+.ar_btn1 {
+    margin-top: 20px;
+    font-size: 14px;
+}
+.arc_m1 {
+    flex:  0 0 120px;
+    width: 120px;
+}
+
+.arc_m1 .btns1 button{
+    font-size: 13px;
+}
+.arc_m1 .btns1 button:hover {
+    opacity:0.7;
+    filter:Alpha(opacity=70);
+}
+
+.tree_input {
+    width: 70%;
+    /*margin-left:5%;*/
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    padding-left: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.tree_search {
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    padding: 0 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+}
+.tree_search:hover {
+    opacity:0.7;
+    filter:Alpha(opacity=70);
+}

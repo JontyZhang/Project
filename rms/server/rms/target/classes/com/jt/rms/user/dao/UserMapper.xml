@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.user.dao.UserMapper" >
+<!--人员查询-->
+  <resultMap id="UserMap" type="com.jt.rms.user.entity.User" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+    <result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+    <result column="PHONE_NUM" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="USER_CID" property="userCID" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 根据UUID查询用户 -->
+<select id="queryUserById" resultMap="UserMap" parameterType="java.lang.String">
+	SELECT U.USER_ID,
+		   U.USER_NAME,
+		   U.USER_PASSWORD,
+	 	   D.value as USER_SEX,
+	 	   U.PHONE_NUM,
+	 	   U.USER_CID,
+	 	   U.CREATE_BY,
+	 	   U.CREATE_TIME,
+	 	   U.UPDATE_BY,
+	 	   U.UPDATE_TIME,
+		   U.REMARK
+		   FROM RMS_USER U
+		   LEFT JOIN rms_sys_dictionary D ON D.code=U.user_sex and D.type_code='sex'
+		   WHERE 1=1
+    <if test="userId != null">
+      AND USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+</select>
+	
+<!-- 查询用户 -->
+<select id="queryUser" parameterType="com.jt.rms.user.entity.User" resultMap="UserMap" >
+	SELECT U.USER_ID,
+		   U.USER_NAME,
+		   U.USER_PASSWORD,
+	 	   D.value as USER_SEX,
+	 	   U.PHONE_NUM,
+	 	   U.USER_CID,
+	 	   U.CREATE_BY,
+	 	   U.CREATE_TIME,
+	 	   U.UPDATE_BY,
+	 	   U.UPDATE_TIME,
+		   U.REMARK
+		   FROM RMS_USER U
+		   LEFT JOIN rms_sys_dictionary D ON D.code=U.user_sex and D.type_code='sex'
+		   WHERE U.USER_NAME = #{userName,jdbcType=VARCHAR} AND U.USER_PASSWORD = #{userPassword,jdbcType=VARCHAR} 
+</select>
+<!-- 查询用户是否存在 -->
+<select id="checkUserExit" parameterType="com.jt.rms.user.entity.User" resultType="INTEGER" >
+	SELECT COUNT(*) FROM RMS_USER WHERE USER_CID = #{userCID}
+    <if test="userName != null">
+      AND userName = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="phoneNum != null">
+      AND PHONE_NUM = #{phoneNum,jdbcType=VARCHAR}
+    </if>	
+</select>
+<!-- 查询用户信息 -->
+<select id="queryUserNew" parameterType="com.jt.rms.user.entity.User" resultMap="UserMap" >
+	SELECT USER_ID,
+		   USER_NAME,
+		   USER_PASSWORD,
+	 	   USER_SEX,
+	 	   PHONE_NUM,
+	 	   USER_CID,
+	 	   CREATE_BY,
+	 	   CREATE_TIME,
+	 	   UPDATE_BY,
+	 	   UPDATE_TIME,
+		   REMARK
+		   FROM RMS_USER 
+		   WHERE WHERE USER_CID = #{userCID}
+    <if test="userId != null">
+      AND USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+        <if test="userName != null">
+      AND USER_NAME = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="phoneNum != null">
+      AND PHONE_NUM = #{phoneNum,jdbcType=VARCHAR}
+    </if>	
+</select>
+<!-- 新增用户 -->
+<insert id="insertUser" parameterType="com.jt.rms.user.entity.User">
+	INSERT INTO RMS_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userPassword != null" >
+        USER_PASSWORD,
+      </if>
+      <if test="userSex != null" >
+        USER_SEX,
+      </if>
+      <if test="phoneNum != null" >
+        PHONE_NUM,
+      </if>      
+      <if test="userCID != null" >
+       USER_CID,
+      </if>      
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+        CREATE_TIME,
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+       UPDATE_TIME,
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+       <if test="userCID != null" >
+        #{userCID,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+		now(),
+	    <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      	</if>	
+      	 now(),
+        <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+</insert>
+<!-- 批量查询用户 -->
+<select id="queryUserBatch" resultMap="UserMap" parameterType="Map">
+	   	 SELECT   U.USER_ID,
+				  U.USER_NAME ,
+				  U.USER_PASSWORD ,
+				  D.value as USER_SEX,
+				  U.PHONE_NUM,
+				  U.USER_CID,
+				  U.CREATE_BY,
+				  U.CREATE_TIME,
+				  U.UPDATE_BY,
+				  U.UPDATE_TIME,
+				  U.REMARK
+				  FROM RMS_USER U
+				  LEFT JOIN rms_sys_dictionary D ON D.code=U.user_sex and D.type_code='sex'
+	   	 		  WHERE 1=1
+	   	 	<if test="phoneNumber != null">
+	    	  AND LOWER(PHONE_NUMBER) like LOWER('%${phoneNumber}%')
+	    	</if>
+	    	<if test="createBy != null">
+	    	  AND LOWER(CREATE_BY) like LOWER('%${createBy}%')
+	    	</if>
+	    	 ORDER by UPDATE_TIME desc
+	</select>
+<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="java.util.List" >
+		  DELETE FROM RMS_USER
+		 WHERE USER_ID IN
+	   <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	   	#{item.userId}
+	   </foreach>
+	</delete>
+<!-- 更新用户信息 -->
+	<update id="updateUser" parameterType="com.jt.rms.user.entity.User">
+		UPDATE RMS_USER
+		<set>
+			<if test="userName != null">
+				USER_NAME = #{userName},
+			</if>
+			<if test="userPassword != null">
+				USER_PASSWORD = #{userPassword},
+			</if>
+			<if test="userSex != null">
+				USER_SEX = #{userSex},
+			</if>
+			<if test="phoneNum != null">
+				PHONE_NUM = #{phoneNum},
+			</if>
+			<if test="userCID !=null">
+			    USER_CID=#{userCID},
+			</if>
+			<if test="createBy !=null">
+			   CREATE_BY=#{createBy},
+			</if>
+			<if test="updateBy !=null">
+			   UPDATE_BY=#{updateBy},
+			</if>		 
+			<if test="remark !=null">
+			   REMARK=#{remark},
+			</if>
+			 UPDATE_TIME = NOW()
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
+
+
+<!--用户角色查询-->
+  <resultMap id="UserRoleMap" type="com.jt.rms.user.entity.UserRoleEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="USER_CID" property="userCID" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 根据角色ID查询用户角色连接 -->
+<select id="queryUserRoleList" parameterType="com.jt.rms.user.entity.User" resultMap="UserRoleMap">
+   SELECT * FROM RMS_USER_ROLE 
+   WHERE USER_ID = #{userId,jdbcType=VARCHAR}
+</select>
+<!-- 删除用户角色连接 -->
+	<delete id="deleteUserRole" parameterType="String">
+		 DELETE FROM RMS_USER_ROLE
+		  WHERE USER_ID = #{userId,jdbcType=VARCHAR}
+	</delete>
+<!-- 新增用户角色连接 -->
+	<insert id="addUserRole" parameterType="com.jt.rms.user.entity.UserRoleEntity">
+		INSERT INTO RMS_USER_ROLE
+		    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+		now(),
+    </trim>
+	</insert>
+	<resultMap type="com.jt.rms.user.entity.User" id="selectUserFromHouseIdMap">
+	    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="USER_SEX" property="userSex" jdbcType="VARCHAR" />
+	    <result column="PHONE_NUM" property="phoneNum" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectUserFromHouseId" parameterType="Map" resultMap="selectUserFromHouseIdMap">
+	SELECT USER_ID, USER_NAME,USER_SEX, PHONE_NUM FROM RMS_USER
+		WHERE USER_ID = (SELECT USER_ID FROM RMS_RENTING_HOUSE_USER WHERE RENTING_HOUSE_ID = #{rentingHouseId})	
+	</select>
+</mapper>

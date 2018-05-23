@@ -1,0 +1,17 @@
+.admin header {
+    border:1px solid #eee;
+}
+.admin-menu a {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+.admin .content {
+    margin:10px;
+}
+.admin .content > section:first-child {
+	background: #fff;
+}
+.admin .content > div:first-child {
+	background: #fff;
+}

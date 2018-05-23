@@ -1,0 +1,130 @@
+[  {
+  "path": "imformation",
+  "component": "imformation/index",
+  "label": "资源发布首页",
+  "children":[
+    {
+      "path": "mainList",
+      "component": "imformation/mainList",
+      "label": "房子列表"
+    },
+    {
+      "path": "list",
+      "component": "imformation/list",
+      "label": "房子列表"
+      }
+  ]
+  },
+  {
+    "path": "login",
+    "component": "default/login"
+  },
+  {
+    "path": "/",
+    "component": "home/index",
+    "label": "首页",
+    "children": [
+      {
+        "path": "introduce",
+        "component": "default/introduce",
+        "label": "简述"
+      },
+      {
+        "path": "userManager",
+        "component": "user/index",
+        "label": "用户管理"
+      },
+      {
+        "path": "rentingHouse",
+        "component": "rentingHouse/index",
+        "label": "租屋管理"
+      },
+      {
+        "path": "role",
+        "component": "role/index",
+        "label": "角色管理"
+      },
+      {
+        "path": "premission",
+        "component": "premission/index",
+        "label": "权限管理"
+      },
+      {
+        "path": "contract",
+        "component": "contract/index",
+        "label": "合同管理"
+      },
+      {
+        "path": "payments",
+        "component": "payments/index",
+        "label": "收支管理"
+      },
+      {
+        "path": "rentdetail",
+        "component": "rent/details",
+        "label": "租金管理"
+      },
+      {
+        "path": "tenant",
+        "component": "tenant/index",
+        "label": "客户管理"
+      },
+      {
+        "path": "rent",
+        "component": "rent/index",
+        "label": "租金管理"
+      },
+      {
+        "path": "deposit",
+        "component": "deposit/index",
+        "label": "押金管理"
+      },
+      {
+        "path": "msgManager",
+        "component": "msgManager/index",
+        "label": "押金管理"
+      },
+      {
+        "path": "dictionaryManager",
+        "component": "dictionary/index",
+        "label": "字典管理"
+      },
+      {
+        "path": "personFile",
+        "component": "user/personFile",
+        "label": "个人信息"
+      },
+      {
+        "path": "help",
+        "component": "default/help",
+        "label": "帮助中心"
+      }
+    ]
+  },  
+  {
+    "path": "test",
+    "component": "test/index",
+    "label": "测试"
+  },
+    {
+    "path": "testList",
+    "component": "test/list",
+    "label": "测试List"
+  },
+  {
+    "path": "error",
+    "component": "default/error",
+    "label": "通用错误页面"
+  },
+  {
+    "path": "403",
+    "component": "default/403",
+    "label": "没有权限访问当前页面"
+  },
+  {
+    "path": "*",
+    "component": "default/404",
+    "label": "资源未找到",
+    "comments": "这项配置一定要放到最后面"
+  }
+]

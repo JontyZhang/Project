@@ -1,0 +1,17 @@
+.table-search{
+    height: 50px;
+    display: block;
+}
+.table-input{
+    display: block;
+    padding-right: 50px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+.el-table-jt{
+    margin: 10px;
+}
+.el-table-page{
+    display: inline-block;
+    text-align: center;
+}

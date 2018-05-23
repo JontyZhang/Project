@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.rentinghouse.dao.RentingHouseMapper" >
+<!-- 租屋查询Map -->
+    <resultMap id="rentingHouseMap" type="com.jt.rms.rentinghouse.entity.RentingHouse" >
+    <id column="RENTING_HOUSE_ID" property="rentingHouseId" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="PROVIENCE_ID" property="provienceId" jdbcType="VARCHAR" />
+    <result column="CITY_ID" property="cityId" jdbcType="VARCHAR" />
+    <result column="COUNTRY_ID" property="countryId" jdbcType="VARCHAR" />
+    <result column="COMMUNITY" property="community" jdbcType="VARCHAR" />
+    <result column="HOUSE_STYLE" property="houseStyle" jdbcType="VARCHAR" />
+    <result column="HOUSE_FASE" property="houseFace" jdbcType="VARCHAR" />
+    <result column="RENTING_STYLE" property="rentingStyle" jdbcType="VARCHAR" />
+    <result column="SUPPORTING_FACILITIES" property="supportingFacilities" jdbcType="VARCHAR" />
+    <result column="RENT" property="rent" jdbcType="DOUBLE" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="IMAGES" property="images" jdbcType="VARCHAR" />
+    <result column="LANDLORD" property="landlord" jdbcType="VARCHAR" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    <result column="RENTING_STATE" property="rantingState" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 新增房屋 -->
+	<insert id="addRentingHouse" parameterType="com.jt.rms.rentinghouse.entity.RentingHouse">
+		INSERT INTO RMS_RENTING_HOUSE
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="rentingHouseId != null" >
+	        RENTING_HOUSE_ID,
+	      </if>
+	      <if test="area != null" >
+	        AREA,
+	      </if>
+	      <if test="address != null" >
+	        ADDRESS,
+	      </if>
+	      <if test="community != null" >
+	        COMMUNITY,
+	      </if>
+	      <if test="houseStyle != null" >
+	        HOUSE_STYLE,
+	      </if>
+	      <if test="houseFace != null" >
+	        HOUSE_FASE,
+	      </if>
+	      <if test="rentingStyle != null" >
+	        RENTING_STYLE,
+	      </if>
+	      <if test="provienceId != null" >
+	        PROVIENCE_ID,
+	      </if>
+	      <if test="countryId != null" >
+	        COUNTRY_ID,
+	      </if>
+	      <if test="cityId != null" >
+	        CITY_ID,
+	      </if>
+	      <if test="supportingFacilities != null" >
+	        SUPPORTING_FACILITIES,
+	      </if>
+	      <if test="rent != null" >
+	        RENT,
+	      </if>
+	      <if test="title != null" >
+	        TITLE,
+	      </if>
+	      <if test="images != null" >
+	        IMAGES,
+	      </if>
+	      <if test="landlord != null" >
+	        LANDLORD,
+	      </if>
+	      <if test="phoneNumber != null" >
+	        PHONE_NUMBER,
+	      </if>
+	        CREATE_TIME,
+	        UPDATE_TIME,
+	      <if test="remark != null" >
+	        REMARK,
+	      </if>
+	      <if test="rantingState != null" >
+	        RENTING_STATE,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="rentingHouseId != null" >
+	        #{rentingHouseId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="area != null" >
+	        #{area,jdbcType=VARCHAR},
+	      </if>
+	      <if test="address != null" >
+	        #{address,jdbcType=VARCHAR},
+	      </if>
+	      <if test="community != null" >
+	        #{community,jdbcType=VARCHAR},
+	      </if>
+	      <if test="houseStyle != null" >
+	        #{houseStyle,jdbcType=VARCHAR},
+	      </if>
+	      <if test="houseFace != null" >
+	        #{houseFace,jdbcType=VARCHAR},
+	      </if>
+	      <if test="rentingStyle != null" >
+	        #{rentingStyle,jdbcType=VARCHAR},
+	      </if>  
+	      <if test="provienceId != null" >
+	        #{provienceId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="countryId != null" >
+	        #{countryId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cityId != null" >
+	        #{cityId,jdbcType=VARCHAR},
+	      </if>       
+	      <if test="supportingFacilities != null" >
+	        #{supportingFacilities,jdbcType=VARCHAR},
+	      </if>      
+	      <if test="rent != null" >
+	        #{rent,jdbcType=DOUBLE},
+	      </if>      
+	      <if test="title != null" >
+	        #{title,jdbcType=VARCHAR},
+	      </if>      
+	      <if test="images != null" >
+	        #{images,jdbcType=VARCHAR},
+	      </if>      
+	      <if test="landlord != null" >
+	        #{landlord,jdbcType=VARCHAR},
+	      </if>      
+	      <if test="phoneNumber != null" >
+	        #{phoneNumber,jdbcType=VARCHAR},
+	      </if>
+	        now(),     
+	        now(),
+	       <if test="remark != null" >
+	        #{remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="rantingState != null" >
+	        #{rantingState,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+<!-- 租屋批量查询 -->
+	<select id="queryRentingHousesBatch" resultMap="rentingHouseMap" parameterType="Map">
+	   	 SELECT   RENTING_HOUSE_ID,
+				  AREA ,
+				  ADDRESS ,
+				  PROVIENCE_ID,
+				  CITY_ID,
+				  COUNTRY_ID,
+				  COMMUNITY,
+				  HOUSE_STYLE,
+				  HOUSE_FASE,
+				  RENTING_STYLE,
+				  SUPPORTING_FACILITIES,
+				  RENT,
+				  TITLE,
+				  IMAGES,
+				  LANDLORD,
+				  PHONE_NUMBER ,
+				  REMARK,
+				  CREATE_TIME,
+				  UPDATE_TIME,
+				  RENTING_STATE
+				  FROM RMS_RENTING_HOUSE
+	   	 		  WHERE RENTING_HOUSE_ID IN (SELECT RENTING_HOUSE_ID  FROM RMS_RENTING_HOUSE_USER WHERE USER_ID = #{userId})
+	   	 	<if test="phoneNumber != null">
+	    	  AND LOWER(PHONE_NUMBER) like LOWER('%${phoneNumber}%')
+	    	</if>
+	    	<if test="area != null">
+	    	  AND LOWER(AREA) like LOWER('%${area}%')
+	    	</if>
+	    	<if test="provienceId != null">
+	    	  AND LOWER(PROVIENCE_ID) like LOWER('%${provienceId}%')
+	    	</if>
+	    	<if test="countryId != null">
+	    	  AND LOWER(COUNTRY_ID) like LOWER('%${countryId}%')
+	    	</if>
+	    	<if test="cityId != null">
+	    	  AND LOWER(CITY_ID) like LOWER('%${cityId}%')
+	    	</if>
+	    	 ORDER by UPDATE_TIME desc
+	</select>
+<!-- 租屋批量查询 首页专用 -->
+	<select id="queryRentingHousesBatchFront" resultMap="rentingHouseMap" parameterType="Map">
+	   	 SELECT   RENTING_HOUSE_ID,
+				  AREA ,
+				  ADDRESS ,
+				  PROVIENCE_ID,
+				  CITY_ID,
+				  COUNTRY_ID,
+				  COMMUNITY,
+				  HOUSE_STYLE,
+				  HOUSE_FASE,
+				  RENTING_STYLE,
+				  SUPPORTING_FACILITIES,
+				  RENT,
+				  TITLE,
+				  IMAGES,
+				  LANDLORD,
+				  PHONE_NUMBER ,
+				  REMARK,
+				  CREATE_TIME,
+				  UPDATE_TIME,
+				  RENTING_STATE
+				  FROM RMS_RENTING_HOUSE
+	   	 		  WHERE 1=1 AND RENTING_STATE='1'
+	   	 	<if test="phoneNumber != null">
+	    	  AND LOWER(PHONE_NUMBER) like LOWER('%${phoneNumber}%')
+	    	</if>
+	    	<if test="area != null">
+	    	  AND LOWER(AREA) like LOWER('%${area}%')
+	    	</if>
+	    	<if test="provienceId != null">
+	    	  AND LOWER(PROVIENCE_ID) like LOWER('%${provienceId}%')
+	    	</if>
+	    	<if test="countryId != null">
+	    	  AND LOWER(COUNTRY_ID) like LOWER('%${countryId}%')
+	    	</if>
+	    	<if test="cityId != null">
+	    	  AND LOWER(CITY_ID) like LOWER('%${cityId}%')
+	    	</if>
+	    	<if test="rentingStyle != null">
+	    	  AND LOWER(RENTING_STYLE) like LOWER('%${rentingStyle}%')
+	    	</if>	
+	    	 ORDER by UPDATE_TIME desc
+	</select>
+<!-- 租屋批量查询 首页专用 -->
+	<select id="queryRentingHousesBatchFrontNew" resultMap="rentingHouseMap" parameterType="com.jt.rms.app.entity.SearchConditionDto">
+	   	 SELECT   RENTING_HOUSE_ID,
+				  AREA ,
+				  ADDRESS ,
+				  PROVIENCE_ID,
+				  CITY_ID,
+				  COUNTRY_ID,
+				  COMMUNITY,
+				  HOUSE_STYLE,
+				  HOUSE_FASE,
+				  RENTING_STYLE,
+				  SUPPORTING_FACILITIES,
+				  RENT,
+				  TITLE,
+				  IMAGES,
+				  LANDLORD,
+				  PHONE_NUMBER ,
+				  REMARK,
+				  CREATE_TIME,
+				  UPDATE_TIME,
+				  RENTING_STATE
+				  FROM RMS_RENTING_HOUSE
+	   	 		  WHERE 1=1 AND RENTING_STATE='1'
+	    	<if test="provienceId != null">
+	    	  AND LOWER(PROVIENCE_ID) like LOWER('%${provienceId}%')
+	    	</if>
+	    	<if test="countryId != null">
+	    	  AND LOWER(COUNTRY_ID) like LOWER('%${countryId}%')
+	    	</if>
+	    	<if test="cityId != null">
+	    	  AND LOWER(CITY_ID) like LOWER('%${cityId}%')
+	    	</if>
+	    	<if test="rentingStyle != null">
+	    	  AND LOWER(RENTING_STYLE) like LOWER('%${rentingStyle}%')
+	    	</if>
+	    	<if test="houseStyle != null">
+	    	  AND LOWER(HOUSE_STYLE) like LOWER('%${houseStyle}%')
+	    	</if>
+	    	<if test="rent != null">
+	    	  AND RENT BETWEEN #{rent1,jdbcType=DOUBLE} AND #{rent2,jdbcType=DOUBLE}
+	    	</if>		
+	    	 ORDER by UPDATE_TIME desc
+	</select>
+<!-- 租屋详情查询Map 首页专用-->
+    <resultMap id="rentingHouseDetail" type="com.jt.rms.app.entity.MsgDetails" >
+    <id column="RENTING_HOUSE_ID" property="rentingHouseId" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="COMMUNITY" property="community" jdbcType="VARCHAR" />
+    <result column="HOUSE_STYLE" property="houseStyle" jdbcType="VARCHAR" />
+    <result column="HOUSE_FASE" property="houseFace" jdbcType="VARCHAR" />
+    <result column="RENTING_STYLE" property="rentingStyle" jdbcType="VARCHAR" />
+    <result column="SUPPORTING_FACILITIES" property="supportingFacilities" jdbcType="VARCHAR" />
+    <result column="RENT" property="rent" jdbcType="DOUBLE" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="IMAGES" property="images" jdbcType="VARCHAR" />
+    <result column="LANDLORD" property="landlord" jdbcType="VARCHAR" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    <result column="RENTING_STATE" property="rantingState" jdbcType="VARCHAR" />
+    <collection property="tenantList" ofType="com.jt.rms.tenant.entity.TenantEntity">
+    	<id column="TENANT_ID" property="tenantId"></id>
+    	<result column="TENANT_NANE" property="tenantName" jdbcType="VARCHAR" />
+    	<result column="TENANT_SEX" property="tenantSex" jdbcType="VARCHAR" />
+    	<result column="TENANT_PHONE_NUM" property="tenantPhoneNum" jdbcType="VARCHAR" />
+    	<result column="RENTING_HOUSE_ID" property="rentingHouseId" jdbcType="VARCHAR" />
+    	<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    	<result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+<!-- 查询租屋详细信息，首页专用 -->
+<select id="queryHouseMsgDetailFront" resultMap="rentingHouseDetail" parameterType="Map">
+		SELECT 
+          RRH.RENTING_HOUSE_ID,
+		  RRH.AREA,
+		  RRH.ADDRESS ,
+		  RRH.COMMUNITY,
+		  RRH.HOUSE_STYLE,
+		  RRH.HOUSE_FASE,
+		  RRH.RENTING_STYLE,
+		  RRH.SUPPORTING_FACILITIES,
+		  RRH.RENT,
+		  RRH.TITLE,
+		  RRH.IMAGES,
+		  RRH.LANDLORD,
+		  RRH.PHONE_NUMBER ,
+		  RRH.REMARK,
+		  RRH.CREATE_TIME,
+		  RRH.UPDATE_TIME,
+		  RRH.RENTING_STATE,
+		  
+		  RLT.TENANT_ID,
+		  RLT.TENANT_NANE,
+		  RLT.TENANT_SEX,
+		  RLT.TENANT_PHONE_NUM,
+		  RLT.RENTING_HOUSE_ID,
+		  RLT.REMARK,
+		  RLT.CREATE_TIME
+		FROM RMS_RENTING_HOUSE RRH
+		LEFT JOIN RMS_TENANTS RLT
+		ON RRH.RENTING_HOUSE_ID = RLT.RENTING_HOUSE_ID
+		WHERE RRH.RENTING_HOUSE_ID = #{ rentingHouseId }
+	
+</select>
+<!-- 批量删除租屋信息 -->
+	<delete id="deleteRentingHousesBatch" parameterType="java.util.List" >
+	   DELETE FROM RMS_RENTING_HOUSE 
+	   WHERE RENTING_HOUSE_ID IN
+	   <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	   	#{item.rentingHouseId}
+	   </foreach>
+	</delete>
+	
+<!-- 更新租屋信息 -->
+	<update id="updateRentingHouse" parameterType="com.jt.rms.rentinghouse.entity.RentingHouse">
+		UPDATE RMS_RENTING_HOUSE
+		<set>
+			<if test="area != null">
+				AREA = #{area},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address},
+			</if>
+			<if test="community != null">
+				COMMUNITY = #{community},
+			</if>
+			<if test="houseStyle != null">
+				HOUSE_STYLE = #{houseStyle},
+			</if>
+			<if test="houseFace !=null">
+			    HOUSE_FASE=#{houseFace},
+			</if>
+			<if test="rentingStyle !=null">
+			   RENTING_STYLE=#{rentingStyle},
+			</if>
+			<if test="supportingFacilities != null">
+				SUPPORTING_FACILITIES = #{supportingFacilities},
+			</if>
+			<if test="rent !=null">
+			   RENT=#{rent},
+			</if>
+			<if test="title !=null">
+			   TITLE=#{title},
+			</if>
+			<if test="images !=null">
+			   IMAGES=#{images},
+			</if>
+			<if test="landlord !=null">
+			   LANDLORD=#{landlord},
+			</if>				
+			<if test="phoneNumber !=null">
+			   PHONE_NUMBER=#{phoneNumber},
+			 </if>			 
+			<if test="remark !=null">
+			   REMARK=#{remark},
+			</if>
+			<if test="rantingState !=null">
+			   RENTING_STATE=#{rantingState},
+			</if>
+			 UPDATE_TIME = NOW()
+		</set>
+		WHERE RENTING_HOUSE_ID = #{rentingHouseId}
+	</update>
+
+<!-- 查询租屋具体信息 -->
+	<select id="queryRentingHouse"  resultMap="rentingHouseMap" parameterType="com.jt.rms.rentinghouse.entity.RentingHouse">
+	 SELECT     RENTING_HOUSE_ID,
+				AREA ,
+				ADDRESS ,
+				PROVIENCE_ID,
+				CITY_ID,
+				COUNTRY_ID,
+				COMMUNITY,
+				HOUSE_STYLE,
+				HOUSE_FASE,
+				RENTING_STYLE,
+				SUPPORTING_FACILITIES,
+				RENT,
+				TITLE,
+				IMAGES,
+				LANDLORD,
+				PHONE_NUMBER ,
+				REMARK,
+				CREATE_TIME,
+				UPDATE_TIME,
+				RENTING_STATE
+				FROM RMS_RENTING_HOUSE 
+	   	 		WHERE  RENTING_HOUSE_ID = #{rentingHouseId}
+	</select>
+<!-- 建立房子房东连接 -->
+	<insert id="addRentingHouseUserConn" parameterType="com.jt.rms.rentinghouse.entity.HouseUserDto">
+		INSERT INTO  RMS_RENTING_HOUSE_USER 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        id,
+	      </if>
+	      <if test="userId != null" >
+	        USER_ID,
+	      </if>
+	      <if test="rengtingHouseId != null" >
+	        RENTING_HOUSE_ID,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        #{id,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userId != null" >
+	        #{userId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="rengtingHouseId != null" >
+	        #{rengtingHouseId,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+<!-- 删除房子房东连接 -->
+	<delete id="deleteRentingHouseUserConn" parameterType="java.util.List">
+	   DELETE FROM RMS_RENTING_HOUSE_USER 
+	   WHERE RENTING_HOUSE_ID IN
+	   <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	   	#{item}
+	   </foreach>
+	</delete>
+<!-- 检查房子房东连接 -->
+	<select id="queryCountRentingHouseUserConn" parameterType="com.jt.rms.rentinghouse.entity.HouseUserDto" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM RMS_RENTING_HOUSE_USER 
+		WHERE USER_ID = #{userId} 
+	</select>
+</mapper>

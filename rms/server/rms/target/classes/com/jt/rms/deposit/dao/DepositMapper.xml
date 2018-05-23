@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.deposit.dao.DepositMapper" >
+<!-- 押金查询Map -->
+    <resultMap id="depositMap" type="com.jt.rms.deposit.entity.DepositEntity" >
+    <id column="DEPOSIT_ID" property="depositId" jdbcType="VARCHAR" />
+    <result column="DEPOSIT" property="deposit" jdbcType="DOUBLE" />
+    <result column="FEE_DATE" property="feeDate" jdbcType="VARCHAR" />
+    <result column="LANDLORD_ID" property="landlordId" jdbcType="VARCHAR" />
+    <result column="LANDLORD" property="landlord" jdbcType="VARCHAR" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+    <result column="DEPOSIT_STATE" property="depositState" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 新增押金单-->
+	<insert id="addDeposit" parameterType="com.jt.rms.deposit.entity.DepositEntity">
+		INSERT INTO RMS_DEPOSIT
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="depositId != null" >
+	        DEPOSIT_ID,
+	      </if>
+	      <if test="deposit != null" >
+	        DEPOSIT,
+	      </if>
+	      <if test="feeDate != null" >
+	        FEE_DATE,
+	      </if>
+	      <if test="landlordId != null" >
+	        LANDLORD_ID,
+	      </if>
+	      <if test="tenantId != null" >
+	        TENANT_ID,
+	      </if>
+	      <if test="depositState != null">
+	      	DEPOSIT_STATE,
+	      </if>
+	      <if test="remark != null" >
+	        REMARK,
+	      </if>
+	      <if test="createBy != null" >
+	        CREATE_BY,
+	      </if>
+	        CREATE_TIME,
+	      <if test="updateBy != null" >
+	        UPDATE_BY,
+	      </if>
+	        UPDATE_TIME,
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="depositId != null" >
+	        #{depositId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="deposit != null" >
+	        #{deposit,jdbcType=DOUBLE},
+	      </if>
+	      <if test="feeDate != null" >
+	        #{feeDate,jdbcType=VARCHAR},
+	      </if>
+	      <if test="landlordId != null" >
+	        #{landlordId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tenantId != null" >
+	        #{tenantId,jdbcType=VARCHAR},
+	      </if>     
+	      <if test="depositState != null" >
+	        #{depositState,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remark != null" >
+	        #{remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createBy != null" >
+	        #{createBy,jdbcType=VARCHAR},
+	      </if>  
+			now(),   
+	      <if test="updateBy != null" >
+	        #{updateBy,jdbcType=VARCHAR},
+	      </if>
+			now(),    
+	    </trim>
+	</insert>
+<!-- 查询押金列表 -->
+	<select id="queryDepositBatch"  resultMap="depositMap" parameterType="Map">
+		SELECT 	DEPOSIT_ID,
+		        DEPOSIT,
+		        FEE_DATE,
+		        LANDLORD_ID,
+		        TENANT_ID,
+		        DEPOSIT_STATE,
+		        REMARK,
+		        CREATE_BY,
+		        CREATE_TIME,
+		        UPDATE_BY,
+		        UPDATE_TIME
+		        FROM 
+				RMS_DEPOSIT
+				WHERE 1=1 AND LANDLORD_ID = #{landlordId}
+	   	 	<if test="landlordId != null">
+	    	  AND LOWER(LANDLORD_ID) like LOWER('%${landlordId}%')
+	    	</if>
+	    	<if test="depositState != null">
+	    	  AND LOWER(DEPOSIT_STATE) like LOWER('%${depositState}%')
+	    	</if>
+	    	 ORDER BY UPDATE_TIME desc				
+	</select>
+<!-- 批量删除押金列表 -->
+	<delete id="deleteDepositBatch"  parameterType="java.util.List" >
+		DELETE FROM RMS_DEPOSIT
+		WHERE DEPOSIT_ID IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item.depositId}
+		</foreach>
+	</delete>
+</mapper>

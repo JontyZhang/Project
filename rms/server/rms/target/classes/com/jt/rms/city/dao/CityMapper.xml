@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.city.dao.CityMapper" >
+	<resultMap id="CityMap" type="com.jt.rms.city.entity.City">
+	    <id column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+	    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+	    <result column="ORG_PID" property="orgId" jdbcType="VARCHAR" />
+	    <result column="CITY_ID" property="cityId" jdbcType="VARCHAR" />		
+	</resultMap>
+	<select id="queryCityByPid"  parameterType ="com.jt.rms.city.entity.City" resultMap="CityMap">
+		SELECT *  FROM RMS_CITY WHERE ORG_PID= #{orgPid}
+	</select>
+	
+	
+	<resultMap type="com.jt.rms.city.entity.City" id="CityTree">
+		 <id column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+		    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+		    <result column="ORG_PID" property="orgId" jdbcType="VARCHAR" />
+		    <result column="CITY_ID" property="cityId" jdbcType="VARCHAR" />
+		    <collection property="childrenList" column="ORG_ID" ofType="CityTree" select ="findCityByPid">
+		     </collection>
+	</resultMap>
+	<select id="findAllCity"   resultMap="CityTree">
+		SELECT *  FROM RMS_CITY WHERE ORG_ID= '500001'
+	</select>
+	<select id="findCityByPid"   resultMap="CityTree">
+		SELECT *  FROM RMS_CITY WHERE ORG_PID= #{orgId}
+	</select>
+	
+	
+<!-- 二级联动城市树查询 -->	
+	<resultMap type="com.jt.rms.city.entity.TreeDto" id="TreeCity">
+		<id column="ORG_ID" property="value" jdbcType="VARCHAR" />
+		 <result column="ORG_NAME" property="label" jdbcType="VARCHAR" />
+		 <collection property="children" column="ORG_ID" ofType="TreeCity" select ="getTreeCityByPid">
+		 </collection>
+	</resultMap>
+	<select id="getTreeCity"   resultMap="TreeCity">
+		SELECT *  FROM RMS_CITY WHERE ORG_ID= '500001'
+	</select>
+	<select id="getTreeCityByPid"   resultMap="TreeCity">
+		SELECT *  FROM RMS_CITY WHERE ORG_PID= #{label}
+	</select>
+<!-- 根据编码查询信息 -->
+	<select id="queryCityByOrgId" resultMap="CityMap"  parameterType ="com.jt.rms.city.entity.City" >
+		select * from RMS_CITY  WHERE ORG_ID = #{orgId}
+	</select>
+</mapper>

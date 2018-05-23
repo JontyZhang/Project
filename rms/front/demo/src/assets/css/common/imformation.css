@@ -1,0 +1,44 @@
+
+/*   头*/
+.imformation-container{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    margin:0px !important;
+}
+.imformation-header{
+    height: 120px;
+    padding:5px;
+    padding-top: 20px;
+    background-color:white;
+    margin-left:300px;
+    margin-right: 2px;
+    size: 20%;
+}
+.Logo-style{
+    width:50px;
+    height:50px; 
+}.Logo-img-style{
+    margin-top: 2px;
+    margin-left: -9px;
+    width:50px;
+    height:50px; 
+}
+.title-style{
+   display: block;
+   padding: 20px;
+   margin-left: -598px;
+}
+.imformation-header-menu{
+    margin-right: 300px;
+    padding-bottom: -52px;
+    float: right;
+}
+
+
+/*   主体*/
+.imformation-main{
+    height: 800px;
+    box-shadow: 0 -2px 2px #ccc;
+}

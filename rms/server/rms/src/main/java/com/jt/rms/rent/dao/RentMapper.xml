@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.rent.dao.RentMapper" >
+<!-- 租金详情查询Map -->
+    <resultMap id="rentsMap" type="com.jt.rms.rent.entity.RentShowVo" >
+    <id column="RENT_ID" property="rentId" jdbcType="VARCHAR" />
+    <result column="TENANT_NAME" property="tenantName" jdbcType="VARCHAR" />
+    <result column="HOUSE_RENT" property="houseRent" jdbcType="DOUBLE" />
+    <result column="WATER_FEE" property="waterFee" jdbcType="DOUBLE" />
+    <result column="ELECTRIC_CHAR" property="electricFee" jdbcType="DOUBLE" />
+    <result column="NET_FEE" property="netFee" jdbcType="DOUBLE" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+    <result column="GAS_FEE" property="gasFee" jdbcType="DOUBLE" />
+    <result column="PROPERTY_FEE" property="propertyFee" jdbcType="DOUBLE" />
+    <result column="LANDLORD_ID" property="landlordId" jdbcType="VARCHAR" />
+	<result column="RENTS_STATE" property="rentsState" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+	 <!-- 配置一对一关联映射 -->
+        <association property="tenant" javaType="com.jt.rms.tenant.entity.TenantEntity">  
+            <id column="TENANT_ID" property="tenantId" jdbcType="VARCHAR"/>  
+            <result column="TENANT_NANE" property="tenantName" jdbcType="VARCHAR"/>  
+            <result column="TENANT_CID" property="tenantCID" jdbcType="VARCHAR"/> 
+        </association>  
+	  </resultMap>
+<!-- 新增租金-->
+	<insert id="addRent" parameterType="com.jt.rms.rent.entity.Rents">
+		INSERT INTO RMS_RENT
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="rentId != null" >
+	        RENT_ID,
+	      </if>
+	      <if test="houseRent != null" >
+	        HOUSE_RENT,
+	      </if>
+	      <if test="waterFee != null" >
+	        WATER_FEE,
+	      </if>
+	      <if test="electricFee != null" >
+	        ELECTRIC_CHAR,
+	      </if>
+	      <if test="netFee != null" >
+	        NET_FEE,
+	      </if>
+	      <if test="gasFee != null" >
+	        GAS_FEE,
+	      </if>
+	      <if test="propertyFee != null" >
+	        PROPERTY_FEE,
+	      </if>
+	      <if test="landlordId != null" >
+	        LANDLORD_ID,
+	      </if>	
+	      <if test="tenantId != null" >
+	        TENANT_ID,
+	      </if>	    	      
+	      <if test="rentsState != null" >
+	        RENTS_STATE,
+	      </if>	      
+	      <if test="remark != null" >
+	        REMARK,
+	      </if>
+	      <if test="createBy != null" >
+	        CREATE_BY,
+	      </if>
+	        CREATE_TIME,
+	      <if test="updateBy != null" >
+	        UPDATE_BY,
+	      </if>
+	        UPDATE_TIME,
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="rentId != null" >
+	        #{rentId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="houseRent != null" >
+	        #{houseRent,jdbcType=DOUBLE},
+	      </if>
+	      <if test="waterFee != null" >
+	        #{waterFee,jdbcType=DOUBLE},
+	      </if>
+	      <if test="electricFee != null" >
+	        #{electricFee,jdbcType=DOUBLE},
+	      </if>
+	      <if test="netFee != null" >
+	        #{netFee,jdbcType=DOUBLE},
+	      </if>
+	      <if test="gasFee != null" >
+	        #{gasFee,jdbcType=DOUBLE},
+	      </if>
+	      <if test="propertyFee != null" >
+	        #{propertyFee,jdbcType=DOUBLE},
+	      </if>
+	      <if test="landlordId != null" >
+	        #{landlordId,jdbcType=VARCHAR},
+	      </if>	      
+	      <if test="tenantId != null" >
+	        #{tenantId,jdbcType=VARCHAR},
+	      </if>	
+	      <if test="rentsState != null" >
+	        #{rentsState,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remark != null" >
+	        #{remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="createBy != null" >
+	        #{createBy,jdbcType=VARCHAR},
+	      </if>  
+			now(),   
+	      <if test="updateBy != null" >
+	        #{updateBy,jdbcType=VARCHAR},
+	      </if>
+			now(),    
+	    </trim>
+	</insert>
+<!-- 查询租金列表 -->
+	<select id="queryRentBatch" parameterType="java.util.Map" resultMap="rentsMap">		
+   SELECT   RR.RENT_ID,
+	        RR.HOUSE_RENT,
+	        RR.WATER_FEE,
+	        RR.ELECTRIC_CHAR,
+	        RR.NET_FEE,
+	        RR.GAS_FEE,
+	        RR.PROPERTY_FEE,
+	        RR.LANDLORD_ID,
+	        RR.TENANT_ID,
+	        RT.TENANT_NANE,
+	        RT.TENANT_CID,
+	        RR.RENTS_STATE,
+	        RR.REMARK,
+	        RR.CREATE_BY,
+	        RR.CREATE_TIME,
+	        RR.UPDATE_BY,
+	        RR.UPDATE_TIME
+	        FROM  RMS_RENT RR
+			LEFT JOIN  RMS_TENANTS RT
+			ON RR.TENANT_ID = RT.TENANT_ID 	        
+			WHERE 1=1 AND RR.LANDLORD_ID = #{userId} 
+	   	 	<if test="houseRent != null">
+	    	  AND LOWER(HOUSE_RENT) like LOWER('%${houseRent}%')
+	    	</if>
+	    	 ORDER by RR.UPDATE_TIME desc				
+	</select>
+<!-- 通过ID查询租金详情 -->
+	<select id="queryRentById"  resultMap="rentsMap" parameterType="String">
+   SELECT   RR.RENT_ID,
+	        RR.HOUSE_RENT,
+	        RR.WATER_FEE,
+	        RR.ELECTRIC_CHAR,
+	        RR.NET_FEE,
+	        RR.GAS_FEE,
+	        RR.PROPERTY_FEE,
+	        RR.LANDLORD_ID,
+	        RR.TENANT_ID,
+	        RR.RENTS_STATE,
+	        RR.REMARK,
+	        RR.CREATE_BY,
+	        RR.CREATE_TIME,
+	        RR.UPDATE_BY,
+	        RR.UPDATE_TIME,
+	        RT.TENANT_NANE
+	        FROM  RMS_RENT RR
+			LEFT JOIN  RMS_TENANTS RT
+			ON RR.TENANT_ID = RT.TENANT_ID 
+			WHERE 1=1 AND RR.RENT_ID = #{rentId} 
+	</select>
+<!-- 批量删除租金列表 -->
+	<delete id="deleteRentBatch"  parameterType="java.util.List" >
+		DELETE FROM RMS_RENT
+		WHERE RENT_ID IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item.rentId}
+		</foreach>
+	</delete>
+<!-- 更新租金信息 -->
+	<update id="updateRents" parameterType="com.jt.rms.rent.entity.Rents">
+		UPDATE RMS_RENT
+		<set>
+			<if test="houseRent != null">
+				HOUSE_RENT = #{houseRent},
+			</if>
+			<if test="waterFee != null">
+				WATER_FEE = #{waterFee},
+			</if>
+			<if test="electricFee != null">
+				ELECTRIC_CHAR = #{electricFee},
+			</if>
+			<if test="netFee != null">
+				NET_FEE = #{netFee},
+			</if>
+			<if test="gasFee != null">
+				GAS_FEE = #{gasFee},
+			</if>
+			<if test="propertyFee !=null">
+			    PROPERTY_FEE=#{propertyFee},
+			</if>
+			<if test="rentsState !=null">
+			   RENTS_STATE=#{rentsState},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark},
+			</if>
+			 UPDATE_TIME = NOW()
+		</set>
+		WHERE RENT_ID = #{rentId}
+	</update>
+</mapper>

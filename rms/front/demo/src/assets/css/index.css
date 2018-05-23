@@ -1,0 +1,8 @@
+/* 公共样式 */
+@import url('common/index.css');
+
+/* 组件 */
+@import url('components/index.css');
+
+/* 第三方组件样式扩展 */
+@import url('ext/index.css');

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.tenant.dao.TenantMapper" >
+<!--客户查询Map-->
+  <resultMap id="TenantMap" type="com.jt.rms.tenant.entity.TenantEntity" >
+    <id column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+    <result column="TENANT_NANE" property="tenantName" jdbcType="VARCHAR" />
+    <result column="TENANT_SEX" property="tenantSex" jdbcType="VARCHAR" />
+    <result column="TENANT_PHONE_NUM" property="tenantCID" jdbcType="VARCHAR" />
+    <result column="TENANT_CID" property="tenantPhoneNum" jdbcType="VARCHAR" />
+    <result column="LANDLORD_ID" property="landlordId" jdbcType="VARCHAR" />
+    <result column="RENTING_HOUSE_ID" property="rentingHouseId" jdbcType="VARCHAR" />
+    <result column="CONTRACT_ID" property="contractId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 根据UUID查询客户信息-->
+<select id="queryTenantByUUID" resultMap="TenantMap" parameterType="java.lang.String">
+	SELECT TENANT_ID,
+		   TENANT_NANE,
+	 	   TENANT_SEX,
+	 	   TENANT_PHONE_NUM,
+	 	   TENANT_CID,
+	 	   LANDLORD_ID,
+	 	   RENTING_HOUSE_ID,
+		   CONTRACT_ID,
+		   REMARK,
+		   CREATE_BY,
+		   CREATE_TIME,
+		   UPDATE_BY,
+		   UPDATE_TIME
+		   FROM RMS_TENANTS
+			WHERE 1=1
+    <if test="id != null">
+      AND TENANT_ID = #{id,jdbcType=VARCHAR}
+    </if>
+</select>
+<!-- 新增客户-->
+<insert id="addTenant" parameterType="com.jt.rms.tenant.entity.TenantEntity">
+	INSERT INTO RMS_TENANTS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+      <if test="tenantName != null" >
+        TENANT_NANE,
+      </if>  
+      <if test="tenantSex != null" >
+        TENANT_SEX,
+      </if>
+      <if test="tenantPhoneNum != null" >
+        TENANT_PHONE_NUM,
+      </if>
+      <if test="tenantCID != null" >
+        TENANT_CID,
+      </if>
+      <if test="landlordId != null" >
+        LANDLORD_ID,
+      </if>
+      <if test="rentingHouseId != null" >
+        RENTING_HOUSE_ID,
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+        CREATE_TIME,
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+        UPDATE_TIME,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantName != null" >
+        #{tenantName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantSex != null" >
+        #{tenantSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantPhoneNum !=null">
+      	#{tenantPhoneNum,jdbcType=VARCHAR},
+      </if>
+	    <if test="tenantCID != null" >
+        #{tenantCID,jdbcType=VARCHAR},
+      	</if>	
+        <if test="landlordId != null" >
+        #{landlordId,jdbcType=VARCHAR},
+      </if>
+      <if test="rentingHouseId != null" >
+        #{rentingHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+	    <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      	</if>	
+      	 now(),
+	    <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      	</if>	
+      	 now(),
+    </trim>
+</insert>
+<!-- 批量查询客户 -->
+<select id="queryTenantBatch" resultMap="TenantMap" parameterType="Map">
+	   	 SELECT   TENANT_ID,
+				  TENANT_NANE ,
+				  TENANT_SEX,
+				  TENANT_PHONE_NUM,
+				  TENANT_CID,
+				  LANDLORD_ID,
+				  RENTING_HOUSE_ID,
+				  CONTRACT_ID,
+				  REMARK,
+				  CREATE_BY,
+				  CREATE_TIME,
+				  UPDATE_BY,
+				  UPDATE_TIME
+				  FROM RMS_TENANTS
+	   	 		  WHERE 1=1 AND LANDLORD_ID = #{landlordId}
+	    	<if test="tenantName != null">
+	    	  AND LOWER(TENANT_NANE) like LOWER('%${tenantName}%')
+	    	</if>
+	    	 ORDER by UPDATE_TIME desc
+	</select>
+<!-- 删除客户 -->
+	<delete id="deleteTenant" parameterType="java.util.List" >
+		  DELETE FROM RMS_TENANTS
+		  WHERE TENANT_ID IN
+		  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		  	#{item.tenantId}
+		  </foreach>
+	</delete>
+<!-- 更新客户信息 -->
+	<update id="updateTenant">
+		UPDATE RMS_TENANTS
+		<set>
+			<if test="tenantName">
+				TENANT_NANE
+			</if>
+			<if test="tenantSex">
+				TENANT_SEX
+			</if>
+			<if test="tenantPhoneNum">
+				TENANT_PHONE_NUM
+			</if>
+			<if test="tenantCID">
+				TENANT_CID
+			</if>
+			<if test="remark">
+				REMARK
+			</if>
+			<if test="updateBy">
+				UPDATE_BY
+			</if>
+			UPDATE_TIME = NOW()
+		</set>
+		WHERE TENANT_ID = #{tenantId}
+	</update>
+</mapper>

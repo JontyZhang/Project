@@ -1,0 +1,13 @@
+1、安装node.js 6.x
+
+2、拷贝依赖包
+	解压..\工具\node_modules.zip到当前目录
+
+3、编译运行项目(开发环境)
+	npm run dev
+
+4、访问项目
+	http://localhost:9000
+
+5、生成生产环境部署包
+	npm run build

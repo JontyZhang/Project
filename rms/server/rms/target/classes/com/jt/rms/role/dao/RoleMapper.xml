@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.role.dao.RoleMapper" >
+<!--人员查询-->
+  <resultMap id="RoleMap" type="com.jt.rms.role.entity.Role" >
+    <id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+<!-- 根据UUID查询角色-->
+<select id="queryRoleById" resultMap="RoleMap" parameterType="java.lang.String">
+	SELECT ROLE_ID,
+		   ROLE_NAME,
+	 	   CREATE_BY,
+	 	   CREATE_TIME,
+	 	   UPDATE_BY,
+	 	   UPDATE_TIME,
+		   REMARK
+	FROM RMS_ROLE
+	WHERE 1=1
+    <if test="roleId != null">
+      AND ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    </if>
+</select>
+<!-- 新增角色-->
+<insert id="insertRole" parameterType="com.jt.rms.role.entity.Role">
+	INSERT INTO RMS_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>  
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+        CREATE_TIME,
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+       UPDATE_TIME,
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+		now(),
+	    <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      	</if>	
+      	 now(),
+        <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+</insert>
+<!-- 批量查询角色 -->
+<select id="queryRoleBatch" resultMap="RoleMap" parameterType="Map">
+	   	 SELECT   ROLE_ID,
+				  ROLE_NAME ,
+				  CREATE_BY,
+				  CREATE_TIME,
+				  UPDATE_BY,
+				  UPDATE_TIME,
+				  REMARK
+				  FROM RMS_ROLE
+	   	 		  WHERE 1=1
+	    	<if test="createBy != null">
+	    	  AND LOWER(CREATE_BY) like LOWER('%${createBy}%')
+	    	</if>
+	    	 ORDER by UPDATE_TIME desc
+	</select>
+<!-- 删除用户 -->
+	<delete id="deleteRoleBatch" parameterType="java.util.List" >
+		  DELETE FROM RMS_ROLE
+		  WHERE ROLE_ID IN
+		  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		  	#{item.roleId}
+		  </foreach>
+	</delete>
+<!-- 更新用户信息 -->
+	<update id="updateUser" parameterType="com.jt.rms.role.entity.Role">
+		UPDATE RMS_ROLE
+		<set>
+			<if test="roleName != null">
+				ROLE_NAME = #{roleName},
+			</if>
+			<if test="createBy !=null">
+			   CREATE_BY=#{createBy},
+			</if>
+			<if test="updateBy !=null">
+			   UPDATE_BY=#{updateBy},
+			</if>		 
+			<if test="remark !=null">
+			   REMARK=#{remark},
+			</if>
+			 UPDATE_TIME = NOW()
+		</set>
+		WHERE ROLE_ID = #{roleId}
+	</update>
+</mapper>

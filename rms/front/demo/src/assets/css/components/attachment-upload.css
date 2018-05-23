@@ -1,0 +1,14 @@
+.input-file {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    cursor: pointer;
+    left: 0;
+}
+.file-link {
+    color: #fff;
+    text-decoration: none;
+}

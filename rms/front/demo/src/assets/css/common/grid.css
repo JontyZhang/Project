@@ -1,0 +1,160 @@
+.grid {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.grid table {
+  width: 100%;
+  text-align: center;
+}
+.grid table th{font-weight: 500;}
+.grid table thead tr {
+  height: 45px;
+  background: #cfcfcf;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.grid table tbody tr {
+  height: 35px;
+  background: #f8f8f8;
+  
+  border-bottom: 1px dotted #ccc;
+}
+.grid table tbody tr td{
+	border: 1px solid #ccc;
+}
+.grid table tbody td:first-child {
+  text-align: center;
+}
+.grid table tbody td[class='name']{
+  text-align: left; text-indent: 5px;
+}
+.grid table tbody td a {
+  margin: 5px;
+}
+
+/*.grid table tbody tr:hover {
+  background: #96c8f8;
+}*/
+.grid .table,
+.grid .table .thead,
+.grid .table .tbody,
+.grid .table .thead .tr,
+.grid .table .tbody .tr{
+	width: 100%;
+}
+
+.grid .table .thead,
+.grid .table .tbody {
+	display: inline-flex;
+    flex-direction: column;
+}
+
+.grid .table .thead .tr,
+.grid .table .tbody .tr{
+	display: inline-flex;
+	justify-content: center;
+	align-items: stretch;
+}
+
+.grid .table .thead .tr .th,
+.grid .table .tbody .tr .td{
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.grid .table .tbody .tr .td.db{
+	display: block;
+}
+
+.grid .table .thead .tr.jcfs,
+.grid .table .tbody .tr.jcfs,
+.grid .table .thead .tr .th.jcfs,
+.grid .table .tbody .tr .td.jcfs{
+	justify-content: flex-start;
+}
+
+.grid .table .thead .tr.jcfe,
+.grid .table .tbody .tr.jcfe,
+.grid .table .thead .tr .th.jcfe,
+.grid .table .tbody .tr .td.jcfe{
+	justify-content: flex-end;
+}
+
+.grid .table .thead .tr:nth-child(n+2){
+    border-top: 1px dotted #ccc;
+}
+
+.grid .table .thead .th {
+  min-height: 45px;
+  background: #cfcfcf;
+  border-right: 1px solid #fff;
+  word-break: break-all;
+}
+
+.grid .table .tbody .tr {
+	min-height: 40px;
+  min-height: min-content;
+  background: #fff;
+  border-bottom: 1px dotted #ccc;
+  height: auto;
+  overflow: hidden;
+}
+
+.grid .table .tbody .td {
+	background-color: #fff;
+	border-right: 1px solid #fff;
+	word-break: break-all;
+	min-height: 40px;
+}
+
+.grid .table .tbody .td:first-child,
+.grid .table .thead .th:first-child {
+	border-left: 0;
+}
+
+.grid .table .tbody .td:last-child,
+.grid .table .thead .th:last-child {
+	border-right: 0;
+}
+
+.grid .table .tbody .td a {
+  margin: 5px;
+}
+
+.grid .table .tbody .tr:hover,
+.grid .table .tbody .tr:hover > .td {
+  background: #96c8f8;
+}
+
+.grid.noHover .table .tbody .tr:hover,
+.grid.noHover .table .tbody .tr:hover > .td {
+	background-color: #fff;
+}
+
+.grid.adaptiveWidth .table{
+	overflow-x: auto;
+}
+
+.grid.adaptiveWidth .table .tbody {
+	/*overflow-x: hidden;*/
+	flex-direction: column;
+}
+
+.grid.adaptiveWidth .table .thead,
+.grid.adaptiveWidth .table .thead .tr,
+.grid.adaptiveWidth .table .tbody,
+.grid.adaptiveWidth .table .tbody .tr{
+	width: auto;
+	justify-content: flex-start;
+	height: auto;
+}
+
+.grid.fixedHead .table .tbody {
+	height: 200px;
+	overflow-y: auto;
+}

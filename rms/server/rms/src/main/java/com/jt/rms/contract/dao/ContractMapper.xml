@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.contract.dao.ContractMapper">
+	<resultMap id="contractMap" type="com.jt.rms.contract.entity.ContractEntity">
+		<id column="CONTRACT_ID" property="contractId" jdbcType="VARCHAR" />
+		<result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
+		<result column="CONTRACT_STYLE" property="contractStyle" jdbcType="VARCHAR" />
+		<result column="LANDLORD_NAME" property="landlordName" jdbcType="VARCHAR" />
+		<result column="LANDLORD_TEL" property="landlordTel" jdbcType="VARCHAR" />
+		<result column="LANDLORD_CID" property="landlordCID" jdbcType="VARCHAR" />
+		<result column="RENTING_HOUSE_ID" property="rentingHouseId" jdbcType="VARCHAR" />
+		<result column="TENANT_NAME" property="tenantName" jdbcType="VARCHAR" />
+		<result column="TENANT_TEL" property="tenantTel" jdbcType="VARCHAR" />
+		<result column="TENANT_CID" property="tenantCID" jdbcType="VARCHAR" />
+		<result column="RENT" property="rent" jdbcType="DOUBLE" />
+		<result column="RENT_ID" property="rentId" jdbcType="VARCHAR" />
+		<result column="DEPOSIT_ID" property="depositId" jdbcType="VARCHAR" />
+		<result column="RENT_FROM_DATE" property="rentFromDate" jdbcType="TIMESTAMP" />
+		<result column="RENT_TO_DATE" property="rentToDate" jdbcType="TIMESTAMP" />
+		<result column="RENT_DATE" property="rentDate" jdbcType="VARCHAR" />
+		<result column="PAY_STYLE" property="payStyle" jdbcType="VARCHAR" />
+		<result column="PAT_DATE" property="payDate" jdbcType="VARCHAR" />
+		<result column="CONTRACT_STATE" property="contractState" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 新增合同 -->
+	<insert id="addContract" parameterType="com.jt.rms.contract.entity.ContractEntity">
+		INSERT INTO RMS_CONTRACT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="contractId != null">
+				CONTRACT_ID,
+			</if>
+			<if test="contractNo !=null">
+				CONTRACT_NO,
+			</if>
+			<if test="contractStyle != null">
+				CONTRACT_STYLE,
+			</if>
+			<if test="landlordName != null">
+				LANDLORD_NAME,
+			</if>
+			<if test="landlordTel != null">
+				LANDLORD_TEL,
+			</if>
+			<if test="landlordCID != null">
+				LANDLORD_CID,
+			</if>
+			<if test="rentingHouseId != null">
+				RENTING_HOUSE_ID,
+			</if>
+			<if test="tenantName != null">
+				TENANT_NAME,
+			</if>
+			<if test="tenantTel != null">
+				TENANT_TEL,
+			</if>
+			<if test="tenantCID != null">
+				TENANT_CID,
+			</if>
+			<if test="rent != null">
+				RENT,
+			</if>
+			<if test="rentId != null">
+				RENT_ID,
+			</if>
+			<if test="depositId != null">
+				DEPOSIT_ID,
+			</if>
+			<if test="rentFromDate != null">
+				RENT_FROM_DATE,
+			</if>
+			<if test="rentToDate != null">
+				RENT_TO_DATE,
+			</if>
+			<if test="rentDate != null">
+				RENT_DATE,
+			</if>
+			<if test="payStyle != null">
+				PAY_STYLE,
+			</if>
+			<if test="payDate != null">
+				PAT_DATE,
+			</if>
+			<if test="contractState != null">
+				CONTRACT_STATE,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="createBy != null">
+				CREATE_BY,
+			</if>
+			CREATE_TIME,
+			<if test="updateBy != null">
+				UPDATE_BY,
+			</if>
+			UPDATE_TIME,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="contractId != null">
+				#{contractId,jdbcType=VARCHAR},
+			</if>
+			<if test="contractNo != null">
+				#{contractNo,jdbcType=VARCHAR},
+			</if>
+			<if test="contractStyle != null">
+				#{contractStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="landlordName != null">
+				#{landlordName,jdbcType=VARCHAR},
+			</if>
+			<if test="landlordTel != null">
+				#{landlordTel,jdbcType=VARCHAR},
+			</if>
+			<if test="landlordCID != null">
+				#{landlordCID,jdbcType=VARCHAR},
+			</if>
+			<if test="rentingHouseId != null">
+				#{rentingHouseId,jdbcType=VARCHAR},
+			</if>
+			<if test="tenantName != null">
+				#{tenantName,jdbcType=VARCHAR},
+			</if>
+			<if test="tenantTel != null">
+				#{tenantTel,jdbcType=VARCHAR},
+			</if>
+			<if test="tenantCID != null">
+				#{tenantCID,jdbcType=VARCHAR},
+			</if>
+			<if test="rent != null">
+				#{rent,jdbcType=DOUBLE},
+			</if>
+			<if test="rentId != null">
+				#{rentId,jdbcType=VARCHAR},
+			</if>
+			<if test="depositId != null">
+				#{depositId,jdbcType=VARCHAR},
+			</if>			
+			<if test="rentFromDate != null">
+				#{rentFromDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rentToDate != null">
+				#{rentToDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rentDate != null">
+				#{rentDate,jdbcType=VARCHAR},
+			</if>
+			<if test="payStyle != null">
+				#{payStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="payDate != null">
+				#{payDate,jdbcType=VARCHAR},
+			</if>
+			<if test="contractState != null">
+				#{contractState,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			now(),
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			now(),
+		</trim>
+	</insert>
+	<!-- 批量查询合同 -->
+	<select id="queryContractBatch" resultMap="contractMap" parameterType="Map">
+		SELECT CONTRACT_ID,
+		CONTRACT_NO,
+		CONTRACT_STYLE,
+		LANDLORD_NAME,
+		LANDLORD_TEL,
+		LANDLORD_CID,
+		RENTING_HOUSE_ID,
+		TENANT_NAME,
+		TENANT_TEL,
+		TENANT_CID,
+		RENT,
+		RENT_ID,
+		DEPOSIT_ID,
+		RENT_FROM_DATE,
+		RENT_TO_DATE,
+		RENT_DATE,
+		PAY_STYLE,
+		PAT_DATE,
+		CONTRACT_STATE,
+		REMARK,
+		CREATE_BY,
+		CREATE_TIME,
+		UPDATE_BY,
+		UPDATE_TIME
+		FROM RMS_CONTRACT
+		WHERE LANDLORD_CID IN (SELECT USER_CID FROM RMS_USER WHERE USER_ID = #{userId})
+		<if test="tenantName != null">
+			AND LOWER(TENANT_NAME) like LOWER('%${tenantName}%')
+		</if>
+		<if test="tenantTel != null">
+			AND LOWER(TENANT_TEL) like LOWER('%${tenantTel}%')
+		</if>
+		<if test="contractState != null">
+			AND CONTRACT_STATE = {contractState}
+		</if>
+		ORDER by UPDATE_TIME desc
+	</select>
+	<!-- 批量删除合同 -->
+	<delete id="deleteContractBatch" parameterType="java.util.List">
+		DELETE FROM RMS_CONTRACT WHERE CONTRACT_ID IN
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item.contractId}
+		</foreach>
+	</delete>
+	<!-- 更新合同信息 -->
+	<update id="updateContract" parameterType="com.jt.rms.contract.entity.ContractEntity">
+		UPDATE RMS_CONTRACT
+		<set>
+			<if test="contractNo != null">
+				CONTRACT_NO = #{contractNo},
+			</if>
+			<if test="contractStyle != null">
+				CONTRACT_STYLE = #{contractStyle},
+			</if>
+			<if test="landlordName != null">
+				LANDLORD_NAME = #{landlordName},
+			</if>
+			<if test="landlordTel != null">
+				TENANT_TEL = #{landlordTel},
+			</if>
+			<if test="landlordCID !=null">
+				LANDLORD_CID=#{landlordCID},
+			</if>
+			<if test="rentingHouseId != null">
+				RENTING_HOUSE_ID = #{rentingHouseId},
+			</if>
+			<if test="tenantName != null">
+				TENANT_NAME = #{tenantName},
+			</if>
+			<if test="tenantTel != null">
+				TENANT_TEL = #{tenantTel},
+			</if>
+			<if test="tenantCID !=null">
+				TENANT_CID=#{tenantCID},
+			</if>
+			<if test="rent !=null">
+				RENT=#{rent},
+			</if>
+			<if test="rentId != null">
+				RENT_ID = #{rentId},
+			</if>
+			<if test="depositId != null">
+				DEPOSIT_ID = #{depositId},
+			</if>
+			<if test="rentFromDate !=null">
+				RENT_FROM_DATE=#{rentFromDate},
+			</if>
+			<if test="rentToDate !=null">
+				RENT_TO_DATE=#{rentToDate},
+			</if>
+			<if test="rentDate !=null">
+				RENT_DATE=#{rentDate},
+			</if>
+			<if test="payStyle !=null">
+				PAY_STYLE=#{payStyle},
+			</if>
+			<if test="payDate !=null">
+				PAT_DATE=#{payDate},
+			</if>
+			<if test="contractState !=null">
+				CONTRACT_STATE=#{contractState},
+			</if>
+			<if test="remark !=null">
+				REMARK=#{remark},
+			</if>
+			<if test="rantingState !=null">
+				RENTING_STATE=#{rantingState},
+			</if>
+			<if test="updaeteBy !=null">
+				UPDATE_BY=#{updaeteBy},
+			</if>
+			UPDATE_TIME = NOW()
+		</set>
+		WHERE CONTRACT_ID = #{contractId}
+	</update>
+	<!-- 查询合同具体内容 -->
+	<select id="queryContract" parameterType="com.jt.rms.contract.entity.ContractEntity" resultMap="contractMap">
+		SELECT  CONTRACT_ID,
+				CONTRACT_NO,
+				CONTRACT_STYLE,
+				LANDLORD_NAME,
+				LANDLORD_TEL,
+				LANDLORD_CID,
+				RENTING_HOUSE_ID,
+				TENANT_NAME,
+				TENANT_TEL,
+				TENANT_CID,
+				RENT,
+				RENT_ID,
+				DEPOSIT_ID,
+				RENT_FROM_DATE,
+				RENT_TO_DATE,
+				RENT_DATE,
+				PAY_STYLE,
+				PAT_DATE,
+				CONTRACT_STATE,
+				REMARK,
+				CREATE_BY,
+				CREATE_TIME,
+				UPDATE_BY,
+				UPDATE_TIME
+				FROM RMS_CONTRACT
+				WHERE CONTRACT_ID = #{contractId}
+	</select>
+<!-- 根据房子Id查询合同详情 -->
+	<select id="queryContractByRentingHosueId" parameterType="String" resultMap="contractMap">
+		SELECT  CONTRACT_ID,
+				CONTRACT_NO,
+				CONTRACT_STYLE,
+				LANDLORD_NAME,
+				LANDLORD_TEL,
+				LANDLORD_CID,
+				RENTING_HOUSE_ID,
+				TENANT_NAME,
+				TENANT_TEL,
+				TENANT_CID,
+				RENT,
+				RENT_ID,
+				DEPOSIT_ID,
+				RENT_FROM_DATE,
+				RENT_TO_DATE,
+				RENT_DATE,
+				PAY_STYLE,
+				PAT_DATE,
+				CONTRACT_STATE,
+				REMARK,
+				CREATE_BY,
+				CREATE_TIME,
+				UPDATE_BY,
+				UPDATE_TIME
+				FROM RMS_CONTRACT
+				WHERE RENTING_HOUSE_ID = #{rentingHosueId}
+	</select>
+</mapper>

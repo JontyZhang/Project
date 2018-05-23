@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jt.rms.MsgManager.dao.MsgManagerMapper" >
+<!-- 留言详情查询Map -->
+    <resultMap id="MsgMap" type="com.jt.rms.MsgManager.entity.MsgManagerEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TOURISTNUM" property="touristNum" jdbcType="VARCHAR" />
+    <result column="MSG" property="msg" jdbcType="VARCHAR" />
+    <result column="MSG_STATE" property="msgState" jdbcType="VARCHAR" />  
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    </resultMap>
+<!-- 新增留言-->
+	<insert id="addMsg" parameterType="com.jt.rms.MsgManager.entity.MsgManagerEntity">
+		INSERT INTO RMS_MSG_MANAGEMENT
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        ID,
+	      </if>
+	      <if test="touristNum != null" >
+	        TOURISTNUM,
+	      </if>
+	      <if test="msg != null" >
+	        MSG,
+	      </if>
+	      <if test="msgState != null" >
+	        MSG_STATE,
+	      </if>	      
+	      <if test="userId != null" >
+	        USER_ID,
+	      </if>
+	        CREATE_TIME,
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        #{id,jdbcType=VARCHAR},
+	      </if>
+	      <if test="touristNum != null" >
+	        #{touristNum,jdbcType=VARCHAR},
+	      </if>
+	      <if test="msg != null" >
+	        #{msg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="msgState != null" >
+	        #{msgState,jdbcType=VARCHAR},
+	      </if>
+	      <if test="userId != null" >
+	        #{userId,jdbcType=VARCHAR},
+	      </if>
+			now(),    
+	    </trim>
+	</insert>
+<!-- 查询留言列表 -->
+	<select id="queryMsgBatch" parameterType="Map" resultMap="MsgMap">		
+   			SELECT * FROM  RMS_MSG_MANAGEMENT
+   			WHERE USER_ID = #{userId} 
+   			<if test= "touristNum !=null">
+   				AND TOURISTNUM =#{touristNum}
+   			</if>
+	    	 ORDER by CREATE_TIME desc				
+	</select>
+<!-- 通过ID查询留言详情 -->
+	<select id="queryMsgDetail"  resultMap="MsgMap" parameterType="com.jt.rms.MsgManager.entity.MsgManagerEntity">
+	   SELECT   ID,
+		        TOURISTNUM,
+		        MSG,
+		        MSG_STATE,
+		        USER_ID,
+		        CREATE_TIME
+		        FROM  RMS_MSG_MANAGEMENT
+				WHERE  ID = #{id}
+	</select>
+<!-- 批量删除留言列表 -->
+	<delete id="deleteMsgBatch" parameterType="java.util.List">
+	   DELETE FROM RMS_MSG_MANAGEMENT 
+	   WHERE ID IN
+	   <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	   	#{item.id}
+	   </foreach>
+	</delete>
+</mapper>

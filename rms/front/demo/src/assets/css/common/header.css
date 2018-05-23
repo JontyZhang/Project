@@ -1,0 +1,29 @@
+.header-container{
+    width: 100%;
+	height: 80px;
+    line-height: 60px;
+    padding-left: 0px;
+    background: #20a0ff;
+    color:white;
+}
+.header-container .logo{
+    height:60px;
+    font-size: 22px;
+    padding-left:30px;
+    padding-right:20px;
+    border-color: rgba(238,241,146,0.3);
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+.header-container .tools{
+    padding: 0px 23px;
+    width:14px;
+    height: 60px;
+    line-height: 60px;
+    cursor: pointer;
+}
+.header-container.userinfo{
+    text-align: right;
+    padding-right: 35px;
+    float: right;
+}
